@@ -91,7 +91,7 @@ module.exports.login=async function login(req,res) {
          })
         
     } catch (error) {
-        console.log("error is ",error)
+       // console.log("error is ",error)
         res.status(500).send({
             success:false,
             message:" error in login",
@@ -104,7 +104,7 @@ module.exports.login=async function login(req,res) {
 
 //testcontroller
 module.exports.testcontroller= function testcontroller(req,res) {
-     console.log("protected")
+    // console.log("protected")
      res.send("protected route ")
 }
 
@@ -161,7 +161,7 @@ module.exports.getorders=async function getorders(req,res) {
         const orders=await ordermodel.find({buyer:req.user._id}).populate("products").populate("buyer","name")  // populate("products",'-photo')
         res.json(orders)
     } catch (error) {
-        console.log(error)
+       // console.log(error)
          res.status(500).send({
             success:false,
             message:"error while getting orders",
@@ -174,7 +174,7 @@ module.exports.getAllorders=async function getAllorders(req,res) {
         const orders=await ordermodel.find({}).populate("products",'-photo').populate("buyer","name location  phone").sort({ createdAt: -1 }) // populate("products",'-photo')
         res.json(orders)
     } catch (error) {
-        console.log(error)
+       // console.log(error)
          res.status(500).send({
             success:false,
             message:"error while all getting orders",
@@ -190,7 +190,7 @@ module.exports.orderStatus=async function orderStatus(req,res) {
         const orders=await ordermodel.findByIdAndUpdate(orderId,{status},{new:true})
      res.json()
     } catch (error) {
-        console.log(error)
+       // console.log(error)
          res.status(500).send({
             success:false,
             message:"error while changing order status",
@@ -260,9 +260,9 @@ module.exports.forgetpassword = async function forgetpassword(req, res) {
         
             
             const resetpasswordlink = `${req.protocol}://${req.get('Host')}/user/resetpassword/${token}`;
-            console.log(resetpasswordlink);
+           // console.log(resetpasswordlink);
             
-            console.log("Reset token from createresettoken should match with database:", user.resettoken);
+          //  console.log("Reset token from createresettoken should match with database:", user.resettoken);
             let obj = {
                 resetpasswordlink: resetpasswordlink,
                 email: data.email
@@ -322,15 +322,15 @@ module.exports.resetpassword = async function resetpassword(req, res) {
         const { password, confirmPassword } = req.body;
    
         if (password !== confirmPassword) {
-            console.log("password is ",password,"confirmpassword is ",confirmPassword)
-            console.log("password didnt matched");
+           // console.log("password is ",password,"confirmpassword is ",confirmPassword)
+           // console.log("password didnt matched");
             return res.status(400).send({ message: "Passwords do not match" });
             
         }
 
         // Find the user by reset token
         const user = await usermodel.findOne({ resettoken: token });
-        console.log("user is ",user)
+       // console.log("user is ",user)
         if (user) {
             // Use the resetpasswordhandler method to update the password
             await user.resetpasswordhandler(password, confirmPassword);
