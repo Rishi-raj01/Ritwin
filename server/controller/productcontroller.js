@@ -18,7 +18,7 @@ const SendmailTransport =require("nodemailer/lib/sendmail-transport")
 
 module.exports.getallproducts=async function getallproducts(req,res){
     try {
-        console.log("get all product called")
+        //console.log("get all product called")
         let products=await productmodel.find().populate("category").select("-photo").limit(30).sort({createdAt:-1}); 
        // console.log("all product called found",products)
         if(products){
@@ -101,8 +101,8 @@ cloudinary.config({
 
 module.exports.createProduct = async function createProduct(req, res) {
   try {
-      console.log("create product working");
-      console.log("Files received:", req.files.photos); // Debugging log
+     // console.log("create product working");
+      //console.log("Files received:", req.files.photos); // Debugging log
 
       const { name, description, price, category, quantity, shipping } = req.fields;
       if (!name || !description || !price || !category || !quantity || !shipping) {
@@ -121,7 +121,7 @@ module.exports.createProduct = async function createProduct(req, res) {
                       throw new Error("Photo size should not exceed 6 MB");
                   }
 
-                  console.log("Uploading:", photo.path); // Debugging log
+                  //console.log("Uploading:", photo.path); // Debugging log
 
                   const result = await cloudinary.uploader.upload(photo.path, { folder: "products" });
 
@@ -140,7 +140,7 @@ module.exports.createProduct = async function createProduct(req, res) {
           product,
       });
   } catch (error) {
-      console.log("Error:", error);
+     // console.log("Error:", error);
       res.status(500).send({
           success: false,
           error: error.message || error,
@@ -235,8 +235,8 @@ module.exports.updateproduct = async function updateproduct(req, res) {
     const { name, description, price, category, quantity, shipping } = fields;
     const productId = req.params.id;
 
-    console.log("Received fields:", fields);
-    console.log("Received files:", req.files);
+   // console.log("Received fields:", fields);
+   // console.log("Received files:", req.files);
 
     // Fetch existing product
     const existingProduct = await productmodel.findById(productId);
@@ -251,9 +251,9 @@ module.exports.updateproduct = async function updateproduct(req, res) {
 
       const uploadedUrls = await Promise.all(
         photoFiles.map(async (file) => {
-          console.log("Uploading file to Cloudinary:", file.path);
+        //  console.log("Uploading file to Cloudinary:", file.path);
           const result = await cloudinary.uploader.upload(file.path);
-          console.log("Cloudinary Upload Result:", result);
+        //  console.log("Cloudinary Upload Result:", result);
 
           try {
             fs.unlinkSync(file.path); // Delete local file after upload
@@ -275,7 +275,7 @@ module.exports.updateproduct = async function updateproduct(req, res) {
       { new: true }
     );
 
-    console.log("Updated product with photos:", updatedProduct);
+   // console.log("Updated product with photos:", updatedProduct);
 
     res.status(200).send({
       success: true,
@@ -567,7 +567,7 @@ module.exports.braintreepayment = async function braintreepayment(req, res) {
   module.exports.reviews=async function reviews(req,res) {
     try {
       const {slug}=req.params;
-      console.log("Slug from request of review:", slug);
+     // console.log("Slug from request of review:", slug);
       if (!slug) {
         return res.status(400).json({ error: 'Slug is required', success: false });
       }
@@ -608,14 +608,14 @@ module.exports.braintreepayment = async function braintreepayment(req, res) {
   module.exports.createReview = async function createReview(req, res) {
     try {
       const { slug } = req.params;
-      console.log("Review slug is ", slug);
+     // console.log("Review slug is ", slug);
   
       if (!slug) {
         return res.status(400).json({ error: "Slug is required" });
       }
   
       const userId = req.user._id;
-      console.log("user id is ", userId);
+    //  console.log("user id is ", userId);
       const { rating, comment } = req.fields;
   
       if (!rating || !comment) {
@@ -744,7 +744,7 @@ module.exports.braintreepayment = async function braintreepayment(req, res) {
 
 module.exports.paymentCallBack=async function paymentCallBack(req,res) {
   const {razorpay_signature, razorpay_payment_id, razorpay_order_id,cart,user} = req.body
-  console.log("cart in paymentcallback ",cart ,"user is ",user)
+//  console.log("cart in paymentcallback ",cart ,"user is ",user)
   try {
       const string = `${razorpay_order_id}|${razorpay_payment_id}`;
 
@@ -765,10 +765,10 @@ module.exports.paymentCallBack=async function paymentCallBack(req,res) {
           buyer: user._id,
         });
         await order.save();
-        console.log(order);
-        console.log('Order saved:');
+     //   console.log(order);
+      //  console.log('Order saved:');
         sendMail("orderPlaced", { ...user, cart });
-          console.log('payment successfull')
+         // console.log('payment successfull')
           return res.status(200).json({ success: true, message: "Payment successful and order saved" });
         }
         else{
@@ -891,8 +891,8 @@ module.exports.deletephoto = async function deletephoto(req, res) {
     const storedFileNames = product.photos.map(photo => getFileName(photo));
     const receivedFileName = getFileName(decodedPhotoUrl);
 
-    console.log("Stored Filenames:", storedFileNames);
-    console.log("Received Filename:", receivedFileName);
+   // console.log("Stored Filenames:", storedFileNames);
+    //console.log("Received Filename:", receivedFileName);
 
     if (!storedFileNames.includes(receivedFileName)) {
       return res.status(404).send({ success: false, message: "Photo not found" });
@@ -903,7 +903,7 @@ module.exports.deletephoto = async function deletephoto(req, res) {
 
     // Delete image from Cloudinary
     const cloudinaryResponse = await cloudinary.uploader.destroy(publicId);
-    console.log("Cloudinary delete response: ", cloudinaryResponse);
+   // console.log("Cloudinary delete response: ", cloudinaryResponse);
 
     // Remove from MongoDB
     const updatedProduct = await productmodel.findByIdAndUpdate(
