@@ -38,12 +38,12 @@ module.exports.createCategory=async function createCategory(req,res){
 module.exports.updateCategory=async function updateCategory(req,res){
     try {
         const {name}=req.body;
-        console.log("name is ",name)
+        //console.log("name is ",name)
         const {id}=req.params;
-        console.log("id is ",id);
+      //  console.log("id is ",id);
         const category=await categoryModel.findByIdAndUpdate(id,{name,slug:slugify(name)},{new:true});
 
-        console.log("item found ")
+        //console.log("item found ")
         res.status(200).send({
             success: true,
             messsage: "Category Updated Successfully",
