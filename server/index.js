@@ -25,9 +25,15 @@ connectToDatabase();
 
 const PORT = process.env.PORT || 5000;
 
-// Serve static files from the React app (client/build directory)
+// ✅ API Routes should be ABOVE the wildcard route
+app.use("/api/v1/user", authrouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/product", productrouter);
+
+// Serve static files from React app
 app.use(express.static(path.join(__dirname, "../client/build")));
 
+// ✅ Move this to the bottom so API routes are processed first
 app.get("*", (req, res) => {
   if (req.originalUrl.startsWith("/api")) {
     res.status(404).json({ message: "API Route Not Found" });
@@ -35,12 +41,6 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   }
 });
-
-
-// API Routes
-app.use("/api/v1/user", authrouter);
-app.use("/api/v1/category", categoryRouter);
-app.use("/api/v1/product", productrouter);
 
 // Default Route
 app.get("/", (req, res) => {
