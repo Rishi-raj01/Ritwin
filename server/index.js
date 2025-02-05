@@ -28,16 +28,14 @@ const PORT = process.env.PORT || 5000;
 // Serve static files from the React app (client/build directory)
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+app.get("*", (req, res) => {
+  if (req.originalUrl.startsWith("/api")) {
+    res.status(404).json({ message: "API Route Not Found" });
+  } else {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  }
+});
 
-  // Serve React app for non-API requests
-  app.get("*", (req, res) => {
-    if (!req.originalUrl.startsWith("/api")) {
-      res.sendFile(path.join(__dirname, '../client/build/index.html'));
-    }
-  });
-}
 
 // API Routes
 app.use("/api/v1/user", authrouter);
