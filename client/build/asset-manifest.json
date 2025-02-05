@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.75bb166a.css",
+    "main.js": "/static/js/main.ae413681.js",
+    "static/media/ritwin.png": "/static/media/ritwin.9ebc8f324fd9c1549ec1.png",
+    "static/media/about.jpeg": "/static/media/about.8fcc66508414b6b0e1fb.jpeg",
+    "index.html": "/index.html",
+    "main.75bb166a.css.map": "/static/css/main.75bb166a.css.map",
+    "main.ae413681.js.map": "/static/js/main.ae413681.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.75bb166a.css",
+    "static/js/main.ae413681.js"
+  ]
+}
