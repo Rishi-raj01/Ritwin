@@ -6,13 +6,17 @@ const jwt_key= process.env.JWT_SECRET;
 
 module.exports.requireSignIn= async function requireSignIn(req,res,next) {
  try {
-  console.log("JWT_SECRET:", process.env.JWT_SECRET);
+ // console.log("JWT_SECRET:", process.env.JWT_SECRET);
      const decode=jwt.verify(req.headers.authorization,jwt_key);
      req.user = decode;
     next();
 }
  catch (error) {
     console.log("error is ",error)
+  res.status(404).send({
+  message:error,
+   success:false
+  })
     
  }
 
