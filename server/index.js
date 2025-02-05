@@ -29,10 +29,13 @@ const PORT = process.env.PORT || 5000;
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  
+  app.use(express.static(path.join(__dirname, '../client/build')));
+
+  // Serve React app for non-API requests
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+    if (!req.originalUrl.startsWith("/api")) {
+      res.sendFile(path.join(__dirname, '../client/build/index.html'));
+    }
   });
 }
 
