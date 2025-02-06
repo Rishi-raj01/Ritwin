@@ -28,7 +28,7 @@ connectToDatabase();
 const PORT = process.env.PORT || 5000;
 
 // ✅ API Routes should be ABOVE the wildcard route
-app.use("/api/v1/server", sitemapRoute); // Add the sitemap route
+app.use("/", sitemapRoute); // Add the sitemap route
 app.use("/api/v1/user", authrouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productrouter);
