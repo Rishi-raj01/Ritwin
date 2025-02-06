@@ -9,7 +9,10 @@
   
   
   "routes":[
-   
+    {
+      "src": "/sitemap.xml",
+      "dest": "/server/sitemap.xml"
+    },
   {
   
   "src": "/(.*)",
