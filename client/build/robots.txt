@@ -1,3 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: /sitemap.xml
+Allow: /
+Sitemap: https://ritwin.vercel.app/sitemap.xml
+
