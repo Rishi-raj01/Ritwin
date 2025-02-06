@@ -9,9 +9,9 @@
   
   
   "routes":[
-   {
+ {
       "src": "/sitemap.xml",
-      "dest": "/api/v1/server/sitemap.xml"
+      "dest": "/sitemap.xml"
     },
   {
   
