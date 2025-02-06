@@ -1,11 +1,11 @@
 const express = require("express");
-const fs = require("fs");
 const Product = require("../model/productmodel"); // Adjust based on your actual model
 const Category = require("../model/CategoryModel"); // Adjust based on your actual model
 const router = express.Router();
+
 router.get("/sitemap.xml", async (req, res) => {
     try {
-        console.log("sitemap called ")
+        console.log("sitemap called ");
         console.log("Generating sitemap...");
 
         // Fetch product and category slugs
@@ -62,10 +62,7 @@ router.get("/sitemap.xml", async (req, res) => {
 
         sitemapXML += `</urlset>`;
 
-        // Save the sitemap to a file (optional)
-        fs.writeFileSync("sitemap.xml", sitemapXML);
-
-        // Send XML response
+        // ✅ Send XML response directly instead of writing to a file
         res.header("Content-Type", "application/xml");
         res.send(sitemapXML);
     } catch (error) {
@@ -73,4 +70,5 @@ router.get("/sitemap.xml", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
 module.exports = router;
