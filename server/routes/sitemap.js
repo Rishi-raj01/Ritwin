@@ -13,29 +13,29 @@ router.get("/sitemap.xml", async (req, res) => {
         const categories = await Category.find({}, "slug");
 
         let urls = [
-            { loc: "https://ritwin.vercel.app/", priority: "1.0" },
-            { loc: "https://ritwin.vercel.app/search", priority: "0.8" },
-            { loc: "https://ritwin.vercel.app/categories", priority: "0.8" },
-            { loc: "https://ritwin.vercel.app/cart", priority: "0.7" },
-            { loc: "https://ritwin.vercel.app/about", priority: "0.6" },
-            { loc: "https://ritwin.vercel.app/contact", priority: "0.6" },
-            { loc: "https://ritwin.vercel.app/policy", priority: "0.5" },
-            { loc: "https://ritwin.vercel.app/register", priority: "0.7" },
-            { loc: "https://ritwin.vercel.app/login", priority: "0.7" },
-            { loc: "https://ritwin.vercel.app/dashboard/user", priority: "0.9" },
-            { loc: "https://ritwin.vercel.app/dashboard/user/orders", priority: "0.9" },
-            { loc: "https://ritwin.vercel.app/dashboard/user/profile", priority: "0.8" },
-            { loc: "https://ritwin.vercel.app/dashboard/admin", priority: "1.0" },
-            { loc: "https://ritwin.vercel.app/dashboard/admin/create-category", priority: "0.9" },
-            { loc: "https://ritwin.vercel.app/dashboard/admin/create-product", priority: "0.9" },
-            { loc: "https://ritwin.vercel.app/dashboard/admin/products", priority: "0.9" },
-            { loc: "https://ritwin.vercel.app/dashboard/admin/orders", priority: "0.9" },
+            { loc: "https://ritwin.shop/", priority: "1.0" },
+            { loc: "https://ritwin.shop/search", priority: "0.8" },
+            { loc: "https://ritwin.shop/categories", priority: "0.8" },
+            { loc: "https://ritwin.shop/cart", priority: "0.7" },
+            { loc: "https://ritwin.shop/about", priority: "0.6" },
+            { loc: "https://ritwin.shop/contact", priority: "0.6" },
+            { loc: "https://ritwin.shop/policy", priority: "0.5" },
+            { loc: "https://ritwin.shop/register", priority: "0.7" },
+            { loc: "https://ritwin.shop/login", priority: "0.7" },
+            { loc: "https://ritwin.shop/dashboard/user", priority: "0.9" },
+            { loc: "https://ritwin.shop/dashboard/user/orders", priority: "0.9" },
+            { loc: "https://ritwin.shop/dashboard/user/profile", priority: "0.8" },
+            { loc: "https://ritwin.shop/dashboard/admin", priority: "1.0" },
+            { loc: "https://ritwin.shop/dashboard/admin/create-category", priority: "0.9" },
+            { loc: "https://ritwin.shop/dashboard/admin/create-product", priority: "0.9" },
+            { loc: "https://ritwin.shop/dashboard/admin/products", priority: "0.9" },
+            { loc: "https://ritwin.shop/dashboard/admin/orders", priority: "0.9" },
         ];
 
         // Add dynamic product pages
         products.forEach(product => {
             urls.push({
-                loc: `https://ritwin.vercel.app/product/${product.slug}`,
+                loc: `https://ritwin.shop/product/${product.slug}`,
                 priority: "0.9",
             });
         });
@@ -43,7 +43,7 @@ router.get("/sitemap.xml", async (req, res) => {
         // Add dynamic category pages
         categories.forEach(category => {
             urls.push({
-                loc: `https://ritwin.vercel.app/category/${category.slug}`,
+                loc: `https://ritwin.shop/category/${category.slug}`,
                 priority: "0.8",
             });
         });
