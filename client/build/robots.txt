@@ -1,4 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: /sitemap.xml
+Disallow: /
+
+Sitemap: https://ritwin.shop/sitemap.xml
+
 
