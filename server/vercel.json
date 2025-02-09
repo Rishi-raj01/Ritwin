@@ -1,20 +1,27 @@
 {
-  "version":2,
-  
+  "version": 2,
   "builds": [
-  
-  { "src": "*.js", "use": "@vercel/node" }
-    
+    { "src": "*.js", "use": "@vercel/node" }
   ],
-  
-  "routes":[
-      
-
-  {
-  
-  "src": "/(.*)",
-  
-  "dest": "/"
-  }
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://ritwin.shop/$1",
+      "permanent": true,
+      "has": [
+        { "type": "host", "value": "ritwin.vercel.app" }
+      ]
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Powered-By", "value": "Ritwin Handmade Gifts"}
+      ]
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
   ]
 }
