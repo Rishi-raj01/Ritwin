@@ -3,21 +3,14 @@
   "builds": [
     { "src": "*.js", "use": "@vercel/node" }
   ],
-  "routes": [
+  "redirects": [
     {
-      "src": "/(.*)",
+      "source": "/(.*)",
+      "destination": "https://ritwin.shop/$1",
+      "permanent": true,
       "has": [
-        {
-          "type": "host",
-          "value": "ritwin.vercel.app"
-        }
-      ],
-      "status": 301,
-      "dest": "https://ritwin.shop/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
+        { "type": "host", "value": "ritwin.vercel.app" }
+      ]
     }
   ],
   "headers": [
@@ -29,4 +22,3 @@
     }
   ]
 }
-
