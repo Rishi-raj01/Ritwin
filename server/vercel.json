@@ -19,5 +19,14 @@
       "src": "/(.*)",
       "dest": "/"
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Powered-By", "value": "Ritwin Handmade Gifts" }
+      ]
+    }
   ]
 }
+
