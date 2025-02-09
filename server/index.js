@@ -24,6 +24,13 @@ app.use(cors({
 
 // Connect to Database
 connectToDatabase();
+app.disable('x-powered-by');
+
+// Add middleware to set your custom header instead
+app.use((req, res, next) => {
+  res.setHeader('X-Powered-By', 'Ritwin');
+  next();
+});
 
 const PORT = process.env.PORT || 5000;
 
