@@ -64,7 +64,6 @@
 
 
 
-
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
@@ -73,10 +72,10 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
-const sitemapRoute = require("./routes/sitemap");
 const authrouter = require("./routes/authrouter");
 const categoryRouter = require("./routes/categoryRouter");
 const productrouter = require("./routes/productrouter");
+const sitemapRoute = require("./routes/sitemap");
 
 const app = express();
 
@@ -84,42 +83,46 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: "*", // Allow requests from any origin
+  origin: "*",
   credentials: true
 }));
 
 // Connect to Database
 connectToDatabase();
+app.disable('x-powered-by');
+
+// Custom header
+app.use((req, res, next) => {
+  res.setHeader('X-Powered-By', 'Ritwin');
+  next();
+});
 
 const PORT = process.env.PORT || 5000;
 
-// ✅ API Routes should be ABOVE static file serving
+// ✅ API Routes
+app.use("/", sitemapRoute);
 app.use("/api/v1/user", authrouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productrouter);
-app.use("/", sitemapRoute);
 
-// ✅ Serve static files correctly
-const buildPath = path.join(__dirname, "client", "build");
-app.use(express.static(buildPath));
+// ✅ Serve static files from React app
+app.use(express.static(path.join(__dirname, "../client/build")));
 
-// ✅ Fix: Ensure only non-API requests get the React app
-app.get("*", (req, res) => {
+// ✅ Fix: Ensure missing API routes return JSON, not HTML
+app.use((req, res, next) => {
   if (req.originalUrl.startsWith("/api")) {
-    res.status(404).json({ message: "API Route Not Found" });
-  } else if (req.originalUrl.startsWith("/static") || req.originalUrl.endsWith(".js") || req.originalUrl.endsWith(".css")) {
-    res.status(404).send("Static file not found");
-  } else {
-    res.sendFile(path.join(buildPath, "index.html"));
+    return res.status(404).json({ message: "API Route Not Found" });
   }
+  next();
 });
 
-// Default Route
-app.get("/", (req, res) => {
-  res.json("Hello");
+// ✅ Serve React App for all other requests
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 // Start the Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
