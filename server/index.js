@@ -64,6 +64,9 @@
 
 
 
+
+
+
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
@@ -105,10 +108,11 @@ app.use("/api/v1/user", authrouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productrouter);
 
-// ✅ Serve static files from React app
-app.use(express.static(path.join(__dirname, "../client/build")));
+// ✅ Serve React Static Files Properly
+const buildPath = path.join(__dirname, "../client/build");
+app.use(express.static(buildPath));
 
-// ✅ Fix: Ensure missing API routes return JSON, not HTML
+// ✅ Ensure API Routes Return JSON, Not HTML
 app.use((req, res, next) => {
   if (req.originalUrl.startsWith("/api")) {
     return res.status(404).json({ message: "API Route Not Found" });
@@ -116,9 +120,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Serve React App for all other requests
+// ✅ Serve React App for All Other Routes
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.sendFile(path.join(buildPath, "index.html"));
 });
 
 // Start the Server
