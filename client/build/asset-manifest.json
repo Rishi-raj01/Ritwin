@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ddebfd05.css",
+    "main.js": "/static/js/main.e0b1cd32.js",
+    "static/media/ritwin.png": "/static/media/ritwin.9ebc8f324fd9c1549ec1.png",
+    "static/media/contact_us.jpg": "/static/media/contact_us.630eebba7e1520ac9d3b.jpg",
+    "static/media/about.jpeg": "/static/media/about.8fcc66508414b6b0e1fb.jpeg",
+    "index.html": "/index.html",
+    "main.ddebfd05.css.map": "/static/css/main.ddebfd05.css.map",
+    "main.e0b1cd32.js.map": "/static/js/main.e0b1cd32.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ddebfd05.css",
+    "static/js/main.e0b1cd32.js"
+  ]
+}
